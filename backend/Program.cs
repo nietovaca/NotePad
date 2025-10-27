@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NotePadApi.Auth;
+using NotePadApi.Repositories;
+using NotePadApi.Services;
 using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,6 +62,11 @@ builder.Services.AddAuthentication(options =>
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Register repositories and services
+builder.Services.AddSingleton<INoteRepository, InMemoryNoteRepository>();
+builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
