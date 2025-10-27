@@ -1,55 +1,159 @@
 # NotePad Application
 
-A simple REST notepad application with .NET backend and React frontend.
+A modern note-taking application with a .NET backend API and React frontend, featuring user authentication and a clean, monochromatic green UI design.
 
-## Features
+![NotePad App](/frontend/public/notepad-screenshot.png)
 
-- User authentication with OKTA
-- Create, read, update, and delete notes
-- Responsive UI design
+## 🚀 Quick Start for Testing
 
-## Project Structure
+Follow these steps to get the application running locally:
 
-- `/backend` - .NET Web API project
-- `/frontend` - React application
+### Prerequisites
 
-## Setup Instructions
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js](https://nodejs.org/) (v16 or later)
+- [npm](https://www.npmjs.com/) (v7 or later)
 
-### Backend
+### Backend Setup
 
 1. Navigate to the backend directory:
-   ```
+   ```bash
    cd backend
    ```
 
-2. Run the .NET Web API:
+2. Restore NuGet packages:
+   ```bash
+   dotnet restore
    ```
+
+3. Run the .NET Web API:
+   ```bash
    dotnet run
    ```
+   The API will be available at `https://localhost:7194` and `http://localhost:5194`
 
-### Frontend
+### Frontend Setup
 
-1. Navigate to the frontend directory:
-   ```
+1. Open a new terminal and navigate to the frontend directory:
+   ```bash
    cd frontend
    ```
 
 2. Install dependencies:
-   ```
+   ```bash
    npm install
    ```
 
 3. Start the React development server:
-   ```
+   ```bash
    npm start
    ```
+   The application will open automatically in your browser at `http://localhost:3000`
 
-## OKTA Configuration
+## 🔐 Authentication
 
-To set up OKTA authentication:
+This application uses Auth0 for authentication. For testing purposes, you can use the following credentials:
 
-1. Create an OKTA developer account
-2. Create a new application in the OKTA dashboard
-3. Configure the application settings
-4. Update the OKTA configuration in the backend and frontend code
+- **Email**: test@example.com
+- **Password**: Test123!
 
+Or you can register a new account during the login process.
+
+## 📝 Features
+
+- **User Authentication**: Secure login/logout functionality
+- **Create Notes**: Add new notes with titles and content
+- **View Notes**: See all your notes in a responsive grid layout
+- **Edit Notes**: Update existing notes
+- **Delete Notes**: Remove unwanted notes
+- **Responsive Design**: Works on desktop and mobile devices
+- **Monochromatic Green Theme**: Clean, professional UI
+
+## 🏗️ Technical Architecture
+
+### Backend (.NET 9.0)
+- **API Framework**: ASP.NET Core Web API
+- **Authentication**: JWT Bearer with Auth0 integration
+- **Project Structure**:
+  - `Controllers/`: API endpoints
+  - `Models/`: Data models
+  - `Auth/`: Authentication configuration
+
+### Frontend (React)
+- **UI Framework**: React 19
+- **Routing**: React Router v7
+- **API Communication**: Axios
+- **Authentication**: Auth0 React SDK
+- **Styling**: CSS with custom variables for theming
+
+## 🛠️ API Endpoints
+
+| Method | Endpoint | Description | Authentication |
+|--------|----------|-------------|----------------|
+| GET | `/api/notes` | Get all notes for the authenticated user | Required |
+| GET | `/api/notes/{id}` | Get a specific note by ID | Required |
+| POST | `/api/notes` | Create a new note | Required |
+| PUT | `/api/notes/{id}` | Update an existing note | Required |
+| DELETE | `/api/notes/{id}` | Delete a note | Required |
+
+## 💻 Development Notes
+
+### Environment Configuration
+
+The application is configured to run in a development environment with the following settings:
+
+- Backend API: http://localhost:5194
+- Frontend: http://localhost:3000
+- CORS is enabled between these origins
+
+### Auth0 Configuration
+
+The application is already configured with Auth0 credentials for testing purposes. In a production environment, you would want to:
+
+1. Create your own Auth0 account
+2. Configure a new application
+3. Update the Auth0 settings in:
+   - `backend/appsettings.json`
+   - `frontend/src/auth/authConfig.js`
+
+## 🧪 Testing
+
+### Backend Tests
+```bash
+cd backend
+dotnet test
+```
+
+### Frontend Tests
+```bash
+cd frontend
+npm test
+```
+
+## 📦 Building for Production
+
+### Backend
+```bash
+cd backend
+dotnet publish -c Release
+```
+
+### Frontend
+```bash
+cd frontend
+npm run build
+```
+
+## 📚 Tech Stack
+
+- **Backend**: .NET 9.0, ASP.NET Core, JWT Authentication
+- **Frontend**: React 19, React Router, Auth0 SDK, Axios
+- **Development Tools**: VS Code, Git
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Thank you for reviewing my NotePad application! If you have any questions or need further assistance setting it up, please don't hesitate to reach out.
