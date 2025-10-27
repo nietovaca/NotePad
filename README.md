@@ -4,24 +4,27 @@ A modern note-taking application with a .NET backend API and React frontend, fea
 
 ![NotePad App](/frontend/public/notepad-screenshot.png)
 
-## 🚀 Quick Start for Testing
+## Quick Start for Testing
 
 Follow these steps to get the application running locally:
 
 ### Prerequisites
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+
 - [Node.js](https://nodejs.org/) (v16 or later)
 - [npm](https://www.npmjs.com/) (v7 or later)
 
 ### Backend Setup
 
 1. Navigate to the backend directory:
+
    ```bash
    cd backend
    ```
 
 2. Restore NuGet packages:
+
    ```bash
    dotnet restore
    ```
@@ -35,11 +38,13 @@ Follow these steps to get the application running locally:
 ### Frontend Setup
 
 1. Open a new terminal and navigate to the frontend directory:
+
    ```bash
    cd frontend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -50,7 +55,7 @@ Follow these steps to get the application running locally:
    ```
    The application will open automatically in your browser at `http://localhost:3000`
 
-## 🔐 Authentication
+## Authentication
 
 This application uses Auth0 for authentication. For testing purposes, you can use the following credentials:
 
@@ -59,7 +64,7 @@ This application uses Auth0 for authentication. For testing purposes, you can us
 
 Or you can register a new account during the login process.
 
-## 📝 Features
+## Features
 
 - **User Authentication**: Secure login/logout functionality
 - **Create Notes**: Add new notes with titles and content
@@ -69,9 +74,10 @@ Or you can register a new account during the login process.
 - **Responsive Design**: Works on desktop and mobile devices
 - **Monochromatic Green Theme**: Clean, professional UI
 
-## 🏗️ Technical Architecture
+## Technical Architecture
 
 ### Backend (.NET 9.0)
+
 - **API Framework**: ASP.NET Core Web API
 - **Authentication**: JWT Bearer with Auth0 integration
 - **Project Structure**:
@@ -80,23 +86,24 @@ Or you can register a new account during the login process.
   - `Auth/`: Authentication configuration
 
 ### Frontend (React)
+
 - **UI Framework**: React 19
 - **Routing**: React Router v7
 - **API Communication**: Axios
 - **Authentication**: Auth0 React SDK
 - **Styling**: CSS with custom variables for theming
 
-## 🛠️ API Endpoints
+## API Endpoints
 
-| Method | Endpoint | Description | Authentication |
-|--------|----------|-------------|----------------|
-| GET | `/api/notes` | Get all notes for the authenticated user | Required |
-| GET | `/api/notes/{id}` | Get a specific note by ID | Required |
-| POST | `/api/notes` | Create a new note | Required |
-| PUT | `/api/notes/{id}` | Update an existing note | Required |
-| DELETE | `/api/notes/{id}` | Delete a note | Required |
+| Method | Endpoint          | Description                              | Authentication |
+| ------ | ----------------- | ---------------------------------------- | -------------- |
+| GET    | `/api/notes`      | Get all notes for the authenticated user | Required       |
+| GET    | `/api/notes/{id}` | Get a specific note by ID                | Required       |
+| POST   | `/api/notes`      | Create a new note                        | Required       |
+| PUT    | `/api/notes/{id}` | Update an existing note                  | Required       |
+| DELETE | `/api/notes/{id}` | Delete a note                            | Required       |
 
-## 💻 Development Notes
+## Development Notes
 
 ### Environment Configuration
 
@@ -116,41 +123,45 @@ The application is already configured with Auth0 credentials for testing purpose
    - `backend/appsettings.json`
    - `frontend/src/auth/authConfig.js`
 
-## 🧪 Testing
+## Testing
 
 ### Backend Tests
+
 ```bash
 cd backend
 dotnet test
 ```
 
 ### Frontend Tests
+
 ```bash
 cd frontend
 npm test
 ```
 
-## 📦 Building for Production
+## Building for Production
 
 ### Backend
+
 ```bash
 cd backend
 dotnet publish -c Release
 ```
 
 ### Frontend
+
 ```bash
 cd frontend
 npm run build
 ```
 
-## 📚 Tech Stack
+## Tech Stack
 
 - **Backend**: .NET 9.0, ASP.NET Core, JWT Authentication
 - **Frontend**: React 19, React Router, Auth0 SDK, Axios
 - **Development Tools**: VS Code, Git
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
