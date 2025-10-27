@@ -1,0 +1,98 @@
+/* src/components/NoteEditor.css */
+.note-editor-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.note-form {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--pale-green);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--dark-green);
+  font-size: 1.05rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--pale-green);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(46, 139, 46, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.cancel-button {
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid var(--light-green);
+  color: var(--dark-green);
+}
+
+.cancel-button:hover {
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+.save-button {
+  background-color: var(--green);
+  border: none;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: var(--medium-green);
+}
+
+.save-button:disabled {
+  background-color: rgba(46, 139, 46, 0.5);
+  cursor: not-allowed;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: #c62828;
+}
