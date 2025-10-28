@@ -2,6 +2,8 @@ using NotePadApi.Models;
 
 namespace NotePadApi.Repositories
 {
+    //repository interface for data access operations on notes
+    //handles data storage and retrieval for notes without any business logic
     public interface INoteRepository
     {
         IEnumerable<Note> GetAllByUserId(string userId);
@@ -11,3 +13,4 @@ namespace NotePadApi.Repositories
         bool Delete(Guid id, string userId);
     }
 }
+

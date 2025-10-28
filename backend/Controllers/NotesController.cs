@@ -4,6 +4,11 @@ using NotePadApi.DTOs;
 using NotePadApi.Services;
 
 namespace NotePadApi.Controllers
+//purpose of this controller is to handle the requests for the notes
+//routes to appropriate services and repositories
+//errors are handled and returned to the client
+//authentication is required for all endpoints
+
 {
     [ApiController]
     [Route("api/[controller]")]

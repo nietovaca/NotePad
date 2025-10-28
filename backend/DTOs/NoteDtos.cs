@@ -2,6 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NotePadApi.DTOs
 {
+  //purpose: to transfer data between the controller and the service layer
+  //it is used to validate the data received from the controller
+  //it is used to transfer the data to the service layer, repository layer, and view layer
+  
+
     public class CreateNoteRequest
     {
         [Required(ErrorMessage = "Title is required")]
