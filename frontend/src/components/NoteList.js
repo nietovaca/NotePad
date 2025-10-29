@@ -55,51 +55,77 @@ const NoteList = () => {
     }
   };
 
-  if (loading) return <div className="loading">Loading notes...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (loading) return (
+    <div aria-live="polite" className="loading">
+      <article>
+        <progress></progress>
+        <p>Loading your notes...</p>
+      </article>
+    </div>
+  );
+  
+  if (error) return (
+    <div role="alert" className="error">
+      <article>
+        <header>
+          <h2>Error</h2>
+        </header>
+        <p>{error}</p>
+        <footer>
+          <button onClick={() => window.location.reload()} className="secondary">Try Again</button>
+        </footer>
+      </article>
+    </div>
+  );
 
   return (
     <div className="note-list-container">
-      <div className="note-list-header">
-        <h2> My Notes </h2>
-        <button
-          className="new-note-button"
-          onClick={() => navigate("/notes/new")}
-        >
-          New Note
-        </button>
-      </div>
+      
       {notes.length === 0 ? (
-        <div className="no-notes">
+        <article className="no-notes">
+          <header>
+            <h3>No Notes Yet</h3>
+          </header>
           <p>You don't have any notes yet. Create a new note to get started.</p>
-        </div>
+          <footer>
+            <button 
+              onClick={() => navigate("/notes/new")} 
+              className="primary"
+            >
+              Create Your First Note
+            </button>
+          </footer>
+        </article>
       ) : (
         <div className="notes-grid">
           {notes.map((note) => (
-            <div key={note.id} className="note-card">
-              <h3>{note.title}</h3>
-              <p className="note-preview">
-                {note.content.length > 100
-                  ? `${note.content.substring(0, 100)}...`
-                  : note.content}
-              </p>
+            <article key={note.id} className="note-card">
+              <div className="note-card-content">
+                <h3>{note.title}</h3>
+                <p className="note-preview">
+                  {note.content.length > 100
+                    ? `${note.content.substring(0, 100)}...`
+                    : note.content}
+                </p>
+              </div>
               <div className="note-footer">
                 <span className="note-date">
                   {new Date(note.createdAt).toLocaleDateString()}
                 </span>
                 <div className="note-actions">
-                  <Link to={`/notes/${note.id}`} className="edit-button">
+                  <Link to={`/notes/${note.id}`} className="edit-button" role="button">
                     Edit
                   </Link>
                   <button
-                    className="delete-button"
+                    className="delete-button outline"
                     onClick={() => handleDeleteNote(note.id)}
+                    aria-label={`Delete note: ${note.title}`}
                   >
                     Delete
                   </button>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       )}

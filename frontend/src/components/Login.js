@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { apiConfig } from "../auth/authConfig";
 import { colors } from "../styles/colors";
+import "./Login.css";
 
 const Login = () => {
   const { loginWithRedirect, logout, isAuthenticated, user, isLoading, error } =
@@ -23,24 +24,16 @@ const Login = () => {
   };
 
   if (isLoading) {
-    return <div>Loading authentication status...</div>;
+    return <span aria-busy="true">Loading authentication...</span>;
   }
 
   if (error) {
     return (
-      <div
-        style={{
-          padding: "10px",
-          border: `1px solid ${colors.error}`,
-          borderRadius: "5px",
-          margin: "10px 0",
-          backgroundColor: "#fff8f8",
-        }}
-      >
-        <p>Authentication Error: {error.message}</p>
+      <div role="alert" className="error">
+        <strong>Authentication Error:</strong> {error.message}
         <button
           onClick={handleLogin}
-          className="btn btn-primary"
+          className="contrast outline"
         >
           Try Again
         </button>
@@ -49,43 +42,41 @@ const Login = () => {
   }
 
   return (
-    <div
-      style={{
-        padding: "10px",
-        border: "1px solid var(--pale-green)",
-        borderRadius: "5px",
-        margin: "10px 0",
-        backgroundColor: "rgba(139, 195, 74, 0.05)"
-      }}
-    >
+    <div className="auth-container">
       {isAuthenticated ? (
-        <div>
-          <p style={{ fontWeight: "bold" }}>Welcome, {user?.name || "User"}</p>
-          <button
-            onClick={() =>
-              logout({
-                logoutParams: {
-                  returnTo: window.location.origin,
-                },
-              })
-            }
-            className="btn btn-danger"
-          >
-            Logout
-          </button>
-          <p>
-            <a
-              href="/notes"
-              style={{ display: "block", marginTop: "10px", color: "var(--light-green)" }}
+        <div className="user-info">
+          <div className="user-greeting">
+            <span>Welcome, <strong>{user?.name || "User"}</strong></span>
+          </div>
+          <div className="auth-actions">
+            <a 
+              href="/notes" 
+              role="button" 
+              className="outline notes-button"
+              aria-label="Go to my notes"
             >
-              Go to My Notes
+              My Notes
             </a>
-          </p>
+            <button
+              onClick={() =>
+                logout({
+                  logoutParams: {
+                    returnTo: window.location.origin,
+                  },
+                })
+              }
+              className="contrast logout-button"
+              aria-label="Log out of your account"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       ) : (
         <button
           onClick={handleLogin}
-          className="btn btn-primary"
+          className="primary"
+          aria-label="Log in to your account"
         >
           Login
         </button>

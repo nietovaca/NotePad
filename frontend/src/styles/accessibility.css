@@ -1,0 +1,108 @@
+/* Additional accessibility enhancements */
+
+/* Skip to main content link - visible only when focused */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Focus indicators */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* Improved contrast for text */
+[data-theme="light"] {
+  --color: #222;
+  --h1-color: #111;
+  --h2-color: #222;
+  --h3-color: #333;
+}
+
+[data-theme="dark"] {
+  --color: #f2f2f2;
+  --h1-color: #ffffff;
+  --h2-color: #f0f0f0;
+  --h3-color: #e8e8e8;
+}
+
+/* Ensure buttons have sufficient size for touch targets */
+button, 
+a[role="button"],
+input[type="submit"],
+input[type="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .App-logo {
+    animation: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .note-card,
+  .note-form,
+  article,
+  button {
+    border: 2px solid;
+  }
+  
+  a:focus,
+  button:focus,
+  input:focus,
+  textarea:focus {
+    outline: 3px solid !important;
+  }
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Ensure proper color contrast */
+.note-date {
+  color: #444; /* Darker for better contrast on light backgrounds */
+}
+
+[data-theme="dark"] .note-date,
+:root[data-theme="dark"] .note-date {
+  color: #aaa; /* Ensure sufficient contrast on dark backgrounds */
+}
+
+/* Fix note footer in dark mode */
+[data-theme="dark"] .note-footer,
+:root[data-theme="dark"] .note-footer {
+  background-color: #333;
+  border-top-color: #444;
+}

@@ -84,53 +84,85 @@ const NoteEditor = ({ isNew }) => {
     }
   };
 
-  if (loading) return <div className="loading">Loading note...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (loading) return (
+    <div aria-live="polite" className="loading">
+      <article>
+        <progress></progress>
+        <p>Loading note...</p>
+      </article>
+    </div>
+  );
+  
+  if (error) return (
+    <div role="alert" className="error">
+      <article>
+        <header>
+          <h2>Error</h2>
+        </header>
+        <p>{error}</p>
+        <footer>
+          <button onClick={() => navigate("/notes")} className="secondary">Back to Notes</button>
+        </footer>
+      </article>
+    </div>
+  );
 
   return (
     <div className="note-editor-container">
-      <h2>{isNew ? "Create New Note" : "Edit Note"}</h2>
+      <article>
+        <header>
+          <h2>{isNew ? "Create New Note" : "Edit Note"}</h2>
+        </header>
 
-      <form onSubmit={handleSubmit} className="note-form">
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={note.title}
-            onChange={handleChange}
-            placeholder="Note title"
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="note-form">
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={note.title}
+              onChange={handleChange}
+              placeholder="Note title"
+              required
+              aria-required="true"
+              autoFocus
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="content">Content</label>
-          <textarea
-            id="content"
-            name="content"
-            value={note.content}
-            onChange={handleChange}
-            placeholder="Write your note here..."
-            rows="10"
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="content">Content</label>
+            <textarea
+              id="content"
+              name="content"
+              value={note.content}
+              onChange={handleChange}
+              placeholder="Write your note here..."
+              rows="8"
+              required
+              aria-required="true"
+            />
+          </div>
 
-        <div className="form-buttons">
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={() => navigate("/notes")}
-          >
-            Cancel
-          </button>
-          <button type="submit" className="save-button" disabled={saving}>
-            {saving ? "Saving..." : "Save Note"}
-          </button>
-        </div>
-      </form>
+          <div className="form-buttons">
+            <button
+              type="button"
+              className="cancel-button secondary outline"
+              onClick={() => navigate("/notes")}
+            >
+              Cancel
+            </button>
+            <button 
+              type="submit" 
+              className="save-button primary" 
+              disabled={saving}
+              aria-busy={saving}
+            >
+              {saving ? "Saving..." : "Save Note"}
+            </button>
+          </div>
+        </form>
+      </article>
     </div>
   );
 };

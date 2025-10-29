@@ -1,0 +1,72 @@
+/* Login component styling */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.user-greeting {
+  color: white;
+  font-size: 0.9rem;
+}
+
+.auth-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.auth-actions a[role="button"],
+.auth-actions button {
+  margin: 0;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Ensure buttons are readable in dark mode */
+.auth-actions .logout-button {
+  background-color: #333;
+  color: white !important; /* Force white text */
+  border: 1px solid #555;
+  font-weight: 500;
+}
+
+.auth-actions .logout-button:hover {
+  background-color: #444;
+  border-color: #666;
+}
+
+.auth-actions .notes-button {
+  background-color: transparent;
+  color: white !important; /* Force white text */
+  border: 1px solid white;
+  font-weight: 500;
+}
+
+.auth-actions .notes-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .auth-container {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .user-info {
+    align-items: center;
+    width: 100%;
+  }
+  
+  .auth-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}

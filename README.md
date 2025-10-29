@@ -6,16 +6,31 @@ A modern note-taking application with a .NET backend API and React frontend, fea
 
 ## Quick Start for Testing
 
-Follow these steps to get the application running locally:
+### Option 1: One-Command Startup (Recommended)
 
-### Prerequisites
+Run the entire application (both backend and frontend) with a single command:
+
+```bash
+./run-app
+```
+
+This script will:
+1. Start the .NET backend API
+2. Start the React frontend
+3. Open the application in your default browser
+4. Handle proper shutdown of both services when terminated
+
+### Option 2: Manual Setup
+
+If you prefer to start the services separately, follow these steps:
+
+#### Prerequisites
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-
 - [Node.js](https://nodejs.org/) (v16 or later)
 - [npm](https://www.npmjs.com/) (v7 or later)
 
-### Backend Setup
+#### Backend Setup
 
 1. Navigate to the backend directory:
 
@@ -35,7 +50,7 @@ Follow these steps to get the application running locally:
    ```
    The API will be available at `https://localhost:7194` and `http://localhost:5194`
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Open a new terminal and navigate to the frontend directory:
 
@@ -154,6 +169,16 @@ dotnet publish -c Release
 cd frontend
 npm run build
 ```
+
+### Deployment
+
+After building both the backend and frontend, you can deploy the application to your preferred hosting environment. For local deployment testing, you can use the provided startup script:
+
+```bash
+./run-app
+```
+
+This script handles starting both the backend and frontend services with proper initialization order and shutdown handling.
 
 ## Tech Stack
 

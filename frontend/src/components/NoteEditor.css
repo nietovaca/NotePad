@@ -1,98 +1,134 @@
-/* src/components/NoteEditor.css */
+/* src/components/NoteEditor.css - Updated with PicoCSS */
 .note-editor-container {
+  width: 100%;
   max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 0 auto 2rem auto; /* Add bottom margin to prevent footer overlap */
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: calc(100vh - 220px); /* Further adjusted for header and footer */
+}
+
+.note-editor-container article {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow: visible; /* Ensure content doesn't get cut off */
+}
+
+.note-editor-container h2 {
+  margin-bottom: var(--typography-spacing-vertical);
 }
 
 .note-form {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--pale-green);
+  background-color: var(--card-background-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  box-shadow: var(--card-box-shadow);
+  border: 1px solid var(--card-border-color);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative; /* For proper stacking context */
+  z-index: 1; /* Ensure form is above other elements */
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing);
 }
 
+/* Content area should expand to fill available space */
+.form-group:nth-child(2) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* PicoCSS already provides good form styling, we just need minimal customization */
 .form-group label {
+  font-weight: 600;
+  color: var(--h3-color);
+  margin-bottom: calc(var(--spacing) / 2);
   display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: var(--dark-green);
-  font-size: 1.05rem;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid var(--pale-green);
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--green);
-  box-shadow: 0 0 0 2px rgba(46, 139, 46, 0.2);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group textarea {
-  resize: vertical;
+  flex: 1;
+  min-height: 150px;
+  max-height: 300px;
+  resize: none; /* Prevent manual resizing which can break layout */
+  margin-bottom: 10px; /* Add space after textarea */
 }
 
+/* Form buttons with PicoCSS */
 .form-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.cancel-button,
-.save-button {
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
+  gap: calc(var(--spacing) / 2);
+  margin-top: var(--spacing);
+  position: relative; /* Establish stacking context */
+  z-index: 2; /* Above other elements */
+  padding-top: 10px; /* Add space above buttons */
+  border-top: 1px solid var(--card-border-color); /* Visual separator */
+  background-color: var(--card-background-color); /* Match form background */
 }
 
 .cancel-button {
-  background-color: rgba(76, 175, 80, 0.1);
-  border: 1px solid var(--light-green);
-  color: var(--dark-green);
-}
-
-.cancel-button:hover {
-  background-color: rgba(76, 175, 80, 0.2);
+  margin: 0;
+  min-width: 100px;
+  white-space: nowrap;
 }
 
 .save-button {
-  background-color: var(--green);
-  border: none;
-  color: white;
-}
-
-.save-button:hover {
-  background-color: var(--medium-green);
+  margin: 0;
+  min-width: 120px;
+  white-space: nowrap;
 }
 
 .save-button:disabled {
-  background-color: rgba(46, 139, 46, 0.5);
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
-.loading,
-.error {
+/* Loading and error states */
+.loading {
   text-align: center;
-  padding: 20px;
+  padding: var(--spacing);
 }
 
 .error {
+  text-align: center;
+  padding: var(--spacing);
   color: #c62828;
+  background-color: #ffebee;
+  border-radius: var(--border-radius);
+  border: 1px solid #ffcdd2;
+  margin-bottom: var(--spacing);
+}
+
+/* Accessibility improvements */
+input:focus,
+textarea:focus,
+button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .form-buttons {
+    flex-direction: column-reverse;
+  }
+  
+  .form-buttons button {
+    width: 100%;
+  }
 }
