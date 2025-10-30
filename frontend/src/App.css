@@ -136,6 +136,32 @@ main .container {
   border: 1px solid #ffcdd2;
 }
 
+/* Screen reader only class - for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focused note card - for keyboard navigation */
+.note-card.focused {
+  outline: 3px solid var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.3);
+}
+
+/* Form validation error messages */
+.error-message {
+  color: #c62828;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
 /* Footer styling */
 footer.container {
   padding: 1rem 0;
@@ -151,22 +177,22 @@ footer.container {
     margin-left: 0;
     width: 100%;
   }
-  
+
   main {
     padding-top: 60px; /* Add space for the mobile side nav */
   }
-  
+
   .App {
     overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
   }
-  
+
   .top-bar-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
     padding: 0.5rem 0;
   }
-  
+
   .top-bar .new-note-button {
     align-self: flex-end;
   }

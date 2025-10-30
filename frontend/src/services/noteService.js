@@ -1,79 +1,136 @@
 import axios from "axios";
 import { apiConfig } from "../auth/authConfig";
 
-// Create axios instance with base URL
-const api = axios.create({
-  baseURL: apiConfig.baseUrl,
-});
-
-// Add auth token to API requests
-const setAuthHeader = (token) => {
-  if (token) {
-    console.log("Setting auth token in headers:", token.substring(0, 15) + "...");
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    console.log("No token provided, removing Authorization header");
-    delete api.defaults.headers.common["Authorization"];
-  }
+/**
+ * Creates an API client with optional token authentication
+ * Following functional programming principles:
+ * - Pure function that creates a new instance each time
+ * - Immutable configuration
+ * - No side effects
+ */
+const createApiClient = (token = null) => {
+  const headers = token 
+    ? { Authorization: `Bearer ${token}` }
+    : {};
+    
+  return axios.create({
+    baseURL: apiConfig.baseUrl,
+    headers: {
+      "Content-Type": "application/json",
+      ...headers
+    }
+  });
 };
 
+/**
+ * Error handler that follows functional programming principles
+ * - Pure function with no side effects
+ * - Returns a new error object rather than modifying the input
+ */
+const handleApiError = (error, context) => {
+  // Log the error with context but don't modify the error
+  console.error(`API Error [${context}]:`, error);
+  
+  // Return a new error object with additional context
+  return {
+    ...error,
+    context,
+    message: error.message || `An error occurred during ${context}`,
+    timestamp: new Date().toISOString(),
+  };
+};
+
+/**
+ * Note service using functional programming principles:
+ * - Immutable data
+ * - Pure functions
+ * - Function composition
+ * - Higher-order functions
+ */
 const noteService = {
+  // Current token state (this is the only mutable state)
+  _token: null,
+  
+  // Pure function to set token
   setToken: (token) => {
-    setAuthHeader(token);
+    noteService._token = token;
+    return noteService; // Enable method chaining
+  },
+  
+  // Higher-order function that creates an authenticated request
+  withAuth: (apiCall) => async (...args) => {
+    const api = createApiClient(noteService._token);
+    return apiCall(api, ...args);
   },
 
-  getAllNotes: async () => {
-    try {
-      const response = await api.get("/api/notes");
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching notes:", error);
-      throw error;
-    }
+  // API methods as pure functions composed with withAuth
+  getAllNotes: async function() {
+    return this.withAuth(
+      async (api) => {
+        try {
+          const response = await api.get("/api/notes");
+          return response.data;
+        } catch (error) {
+          throw handleApiError(error, "fetching all notes");
+        }
+      }
+    )();
   },
 
-  getNoteById: async (id) => {
-    try {
-      const response = await api.get(`/api/notes/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching note: ${id}`, error);
-      throw error;
-    }
+  getNoteById: async function(id) {
+    return this.withAuth(
+      async (api, noteId) => {
+        try {
+          const response = await api.get(`/api/notes/${noteId}`);
+          return response.data;
+        } catch (error) {
+          throw handleApiError(error, `fetching note ${noteId}`);
+        }
+      }
+    )(id);
   },
 
-  createNote: async (note) => {
-    try {
-      console.log("Creating note with data:", note);
-      const response = await api.post("/api/notes", note);
-      console.log("Create note response:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error(`Error creating note:`, error);
-      console.log("Request payload:", note);
-      console.log("Error response:", error.response?.data);
-      throw error;
-    }
+  createNote: async function(note) {
+    return this.withAuth(
+      async (api, noteData) => {
+        try {
+          // Create immutable copy of note data
+          const sanitizedNote = { ...noteData };
+          const response = await api.post("/api/notes", sanitizedNote);
+          return response.data;
+        } catch (error) {
+          throw handleApiError(error, "creating note");
+        }
+      }
+    )(note);
   },
 
-  updateNote: async (id, note) => {
-    try {
-      const response = await api.put(`/api/notes/${id}`, note);
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating note: ${id}`, error);
-      throw error;
-    }
+  updateNote: async function(id, note) {
+    return this.withAuth(
+      async (api, noteId, noteData) => {
+        try {
+          // Create immutable copy of note data
+          const sanitizedNote = { ...noteData };
+          const response = await api.put(`/api/notes/${noteId}`, sanitizedNote);
+          return response.data;
+        } catch (error) {
+          throw handleApiError(error, `updating note ${noteId}`);
+        }
+      }
+    )(id, note);
   },
 
-  deleteNote: async (id) => {
-    try {
-      await api.delete(`/api/notes/${id}`);
-      return true;
-    } catch (error) {
-      console.error(`Error deleting note: ${id}`, error);
-      throw error;
-    }
+  deleteNote: async function(id) {
+    return this.withAuth(
+      async (api, noteId) => {
+        try {
+          await api.delete(`/api/notes/${noteId}`);
+          return true;
+        } catch (error) {
+          throw handleApiError(error, `deleting note ${noteId}`);
+        }
+      }
+    )(id);
   },
 };
 
