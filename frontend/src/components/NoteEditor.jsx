@@ -1,4 +1,4 @@
-// src/components/NoteEditor.js
+// src/components/NoteEditor.jsx
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
