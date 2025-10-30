@@ -16,9 +16,19 @@ if ! command -v npm &> /dev/null; then
     exit 1
 fi
 
+# Store the root directory path
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Check if port 5194 is already in use
+if lsof -i:5194 &>/dev/null; then
+    echo "Warning: Port 5194 is already in use. Stopping existing process..."
+    kill $(lsof -t -i:5194) 2>/dev/null || true
+    sleep 2
+fi
+
 # Start the backend service
 echo "Starting backend service..."
-cd "$(dirname "$0")/backend" || exit
+cd "$ROOT_DIR/backend" || exit
 dotnet build
 # Start the backend in the background
 dotnet run &
@@ -29,9 +39,13 @@ echo "Backend started with PID: $BACKEND_PID"
 echo "Waiting for backend to initialize (5 seconds)..."
 sleep 5
 
+# Go back to root directory
+cd "$ROOT_DIR" || exit
+
 # Start the frontend service
 echo "Starting frontend service..."
-cd "$(dirname "$0")/frontend" || exit
+# Navigate to the frontend directory using absolute path
+cd "$ROOT_DIR/frontend" || { echo "Error: frontend directory not found at $ROOT_DIR/frontend"; exit 1; }
 # Check if node_modules exists, if not, install dependencies
 if [ ! -d "node_modules" ]; then
     echo "Installing frontend dependencies..."

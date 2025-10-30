@@ -4,9 +4,18 @@ A modern note-taking application with a .NET backend API and React frontend, fea
 
 ![NotePad App](/frontend/public/notepad-screenshot.png)
 
+## Test Credentials
+
+For testing purposes, you can use these pre-configured credentials:
+
+- **Email**: `test@example.com`
+- **Password**: Test123!
+
+Or you can register a new account during the login process.
+
 ## Quick Start for Testing
 
-### Option 1: One-Command Startup (Recommended)
+### One-Command Startup
 
 Run the entire application (both backend and frontend) with a single command:
 
@@ -15,12 +24,18 @@ Run the entire application (both backend and frontend) with a single command:
 ```
 
 This script will:
-1. Start the .NET backend API
-2. Start the React frontend
-3. Open the application in your default browser
-4. Handle proper shutdown of both services when terminated
 
-### Option 2: Manual Setup
+1. Check if you have the required dependencies (.NET SDK and npm)
+2. Build and start the .NET backend API
+3. Install frontend dependencies if needed
+4. Start the React frontend
+5. Open the application in your default browser at `http://localhost:3000`
+6. Handle proper shutdown of both services when terminated with Ctrl+C
+7. Automatically handle port conflicts by stopping any existing process using the required ports
+
+> **Note:** If the script doesn't have execute permissions, run `chmod +x run-app start.sh` first.
+
+### Alternative Manual Setup
 
 If you prefer to start the services separately, follow these steps:
 
@@ -29,6 +44,8 @@ If you prefer to start the services separately, follow these steps:
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [Node.js](https://nodejs.org/) (v16 or later)
 - [npm](https://www.npmjs.com/) (v7 or later)
+
+> **Note:** These dependencies are automatically checked by the one-command startup script.
 
 #### Backend Setup
 
@@ -45,9 +62,11 @@ If you prefer to start the services separately, follow these steps:
    ```
 
 3. Run the .NET Web API:
+
    ```bash
    dotnet run
    ```
+
    The API will be available at `https://localhost:7194` and `http://localhost:5194`
 
 #### Frontend Setup
@@ -65,16 +84,18 @@ If you prefer to start the services separately, follow these steps:
    ```
 
 3. Start the React development server:
+
    ```bash
    npm start
    ```
+
    The application will open automatically in your browser at `http://localhost:3000`
 
 ## Authentication
 
 This application uses Auth0 for authentication. For testing purposes, you can use the following credentials:
 
-- **Email**: test@example.com
+- **Email**: `test@example.com`
 - **Password**: Test123!
 
 Or you can register a new account during the login process.
@@ -124,8 +145,8 @@ Or you can register a new account during the login process.
 
 The application is configured to run in a development environment with the following settings:
 
-- Backend API: http://localhost:5194
-- Frontend: http://localhost:3000
+- Backend API: `http://localhost:5194`
+- Frontend: `http://localhost:3000`
 - CORS is enabled between these origins
 
 ### Auth0 Configuration
@@ -170,15 +191,15 @@ cd frontend
 npm run build
 ```
 
-### Deployment
+### Running Locally
 
-After building both the backend and frontend, you can deploy the application to your preferred hosting environment. For local deployment testing, you can use the provided startup script:
+The simplest way to run the application locally is using the provided startup script:
 
 ```bash
 ./run-app
 ```
 
-This script handles starting both the backend and frontend services with proper initialization order and shutdown handling.
+This single command handles starting both the backend and frontend services with proper initialization order and shutdown handling. It's the recommended method for hiring managers and reviewers to test the application quickly.
 
 ## Tech Stack
 
@@ -192,4 +213,24 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-Thank you for reviewing my NotePad application! If you have any questions or need further assistance setting it up, please don't hesitate to reach out.
+Thank you for reviewing my NotePad application!
+
+**To run the application with a single command:**
+
+```bash
+./run-app
+```
+
+This will start both the backend and frontend, and open the application in your browser automatically.
+
+## Troubleshooting
+
+If you encounter any issues running the application:
+
+1. **Port already in use**: The script will automatically attempt to free up the required ports (5194 for backend, 3000 for frontend).
+
+2. **Directory navigation errors**: Make sure you're running the script from the root directory of the project.
+
+3. **Permission denied**: Run `chmod +x run-app start.sh` to give the scripts execute permissions.
+
+If you have any other questions, please don't hesitate to reach out.
