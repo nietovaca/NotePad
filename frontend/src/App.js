@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./auth/AuthProvider";
 import ThemeToggle from "./components/ThemeToggle";
 import SideNav from "./components/SideNav";
+import AuthCallback from "./components/AuthCallback";
 import "./App.css";
 
 const AppContent = () => {
@@ -133,11 +134,7 @@ const AppContent = () => {
               />
               <Route
                 path="/callback"
-                element={
-                  <div aria-live="polite" className="loading">
-                    Loading your account information...
-                  </div>
-                }
+                element={<AuthCallback />}
               />
             </Routes>
           </div>
