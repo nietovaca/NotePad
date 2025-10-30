@@ -6,7 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
  * AuthCallback component for handling authentication redirects
  * This component is displayed during the authentication callback process
  */
-const AuthCallback = () => {
+const AuthCallbackNew = () => {
   const { isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
 
@@ -30,4 +30,4 @@ const AuthCallback = () => {
   );
 };
 
-export default AuthCallback;
+export default AuthCallbackNew;

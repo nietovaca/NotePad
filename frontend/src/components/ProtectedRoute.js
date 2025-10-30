@@ -8,7 +8,14 @@ const ProtectedRoute = ({ children }) => {
 
   if (isLoading) {
     console.log("ProtectedRoute - Still loading auth state");
-    return <div>Loading authentication...</div>;
+    return (
+      <div aria-live="polite" className="loading">
+        <article>
+          <progress aria-label="Authentication in progress"></progress>
+          <p>Loading authentication...</p>
+        </article>
+      </div>
+    );
   }
   
   if (!isAuthenticated) {

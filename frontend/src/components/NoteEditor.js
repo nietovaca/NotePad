@@ -111,10 +111,14 @@ const NoteEditor = ({ isNew }) => {
     <div className="note-editor-container">
       <article>
         <header>
-          <h2>{isNew ? "Create New Note" : "Edit Note"}</h2>
+          <h2 id="form-heading">{isNew ? "Create New Note" : "Edit Note"}</h2>
         </header>
 
-        <form onSubmit={handleSubmit} className="note-form">
+        <form 
+          onSubmit={handleSubmit} 
+          className="note-form"
+          aria-labelledby="form-heading"
+        >
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
@@ -149,6 +153,7 @@ const NoteEditor = ({ isNew }) => {
               type="button"
               className="cancel-button secondary outline"
               onClick={() => navigate("/notes")}
+              aria-label="Cancel and return to notes"
             >
               Cancel
             </button>
@@ -157,6 +162,7 @@ const NoteEditor = ({ isNew }) => {
               className="save-button primary" 
               disabled={saving}
               aria-busy={saving}
+              aria-label={saving ? "Saving note..." : "Save note"}
             >
               {saving ? "Saving..." : "Save Note"}
             </button>

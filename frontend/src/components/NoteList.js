@@ -86,6 +86,9 @@ const NoteList = () => {
 
   return (
     <div className="note-list-container">
+      {/* Add a visually hidden heading for screen readers */}
+      <h2 className="sr-only" id="notes-heading">Your Notes</h2>
+      
       {notes.length === 0 ? (
         <article className="no-notes">
           <header>
@@ -93,17 +96,28 @@ const NoteList = () => {
           </header>
           <p>You don't have any notes yet. Create a new note to get started.</p>
           <footer>
-            <button onClick={() => navigate("/notes/new")} className="primary">
+            <button 
+              onClick={() => navigate("/notes/new")} 
+              className="primary"
+              aria-label="Create your first note"
+            >
               Create Your First Note
             </button>
           </footer>
         </article>
       ) : (
-        <div className="notes-grid">
+        <div 
+          className="notes-grid"
+          aria-labelledby="notes-heading"
+        >
           {notes.map((note) => (
-            <article key={note.id} className="note-card">
+            <article 
+              key={note.id} 
+              className="note-card"
+              tabIndex="0"
+            >
               <div className="note-card-content">
-                <h3>{note.title}</h3>
+                <h3 id={`note-title-${note.id}`}>{note.title}</h3>
                 <p className="note-preview">
                   {note.content.length > 100
                     ? `${note.content.substring(0, 100)}...`
@@ -111,7 +125,10 @@ const NoteList = () => {
                 </p>
               </div>
               <div className="note-footer">
-                <span className="note-date">
+                <span 
+                  className="note-date"
+                  aria-label={`Created on ${new Date(note.createdAt).toLocaleDateString()}`}
+                >
                   {new Date(note.createdAt).toLocaleDateString()}
                 </span>
                 <div className="note-actions">
@@ -119,6 +136,7 @@ const NoteList = () => {
                     to={`/notes/${note.id}`}
                     className="edit-button"
                     role="button"
+                    aria-label={`Edit note: ${note.title}`}
                   >
                     Edit
                   </Link>
