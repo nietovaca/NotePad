@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./auth/AuthProvider";
 import ThemeToggle from "./components/ThemeToggle";
 import SideNav from "./components/SideNav";
-import AuthCallback from "./components/AuthCallback";
+import AuthCallbackNew from "./components/AuthCallbackNew";
 import "./App.css";
 
 const AppContent = () => {
@@ -132,9 +132,9 @@ const AppContent = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route
+                <Route
                 path="/callback"
-                element={<AuthCallback />}
+                element={<AuthCallbackNew />}
               />
             </Routes>
           </div>
