@@ -3,8 +3,12 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
-  
-  console.log("ProtectedRoute - Auth state:", { isAuthenticated, isLoading, user });
+
+  console.log("ProtectedRoute - Auth state:", {
+    isAuthenticated,
+    isLoading,
+    user,
+  });
 
   if (isLoading) {
     console.log("ProtectedRoute - Still loading auth state");
@@ -17,12 +21,12 @@ const ProtectedRoute = ({ children }) => {
       </div>
     );
   }
-  
+
   if (!isAuthenticated) {
     console.log("ProtectedRoute - User not authenticated, redirecting to home");
     return <Navigate to="/" />;
   }
-  
+
   console.log("ProtectedRoute - User authenticated, rendering children");
   return children;
 };

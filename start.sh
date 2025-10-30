@@ -52,8 +52,15 @@ if [ ! -d "node_modules" ]; then
     npm install
 fi
 
-# Start the frontend
-npm start &
+# Check if port 3000 is already in use
+if lsof -i:3000 &>/dev/null; then
+    echo "Warning: Port 3000 is already in use. Stopping existing process..."
+    kill $(lsof -t -i:3000) 2>/dev/null || true
+    sleep 2
+fi
+
+# Start the frontend with Vite
+npm run dev &
 FRONTEND_PID=$!
 echo "Frontend started with PID: $FRONTEND_PID"
 

@@ -7,7 +7,7 @@ import "./SideNav.css";
 const SideNav = () => {
   const { logout, isAuthenticated, user } = useAuth0();
   const location = useLocation();
-  
+
   // Check if current path is the notes page
   const isNotesPage = location.pathname === "/notes";
 
@@ -31,12 +31,16 @@ const SideNav = () => {
             My Notes
           </span>
         ) : (
-          <Link to="/notes" className="side-nav-link" aria-label="Go to my notes">
+          <Link
+            to="/notes"
+            className="side-nav-link"
+            aria-label="Go to my notes"
+          >
             My Notes
           </Link>
         )}
       </div>
-      
+
       {isAuthenticated && (
         <div className="side-nav-bottom">
           <div className="user-email">

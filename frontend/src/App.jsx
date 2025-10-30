@@ -132,10 +132,7 @@ const AppContent = () => {
                   </ProtectedRoute>
                 }
               />
-                <Route
-                path="/callback"
-                element={<AuthCallbackNew />}
-              />
+              <Route path="/callback" element={<AuthCallbackNew />} />
             </Routes>
           </div>
         </main>

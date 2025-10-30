@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./ThemeToggle.css";
 
+import "./ThemeToggle.css";
 const ThemeToggle = () => {
   // Initialize theme from localStorage or system preference
   const getInitialTheme = () => {
@@ -22,7 +22,6 @@ const ThemeToggle = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // Toggle theme
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
