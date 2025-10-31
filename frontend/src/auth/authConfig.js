@@ -7,6 +7,8 @@ export const oktaConfig = {
 };
 
 export const apiConfig = {
-  baseUrl: "http://localhost:5194",
+  baseUrl: process.env.NODE_ENV === 'production' 
+    ? "https://notepad-api.fly.dev"
+    : "http://localhost:5194",
   audience: "https://dev-vwes00hgwyh760q0.us.auth0.com/api/v2/",
 };
