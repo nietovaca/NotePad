@@ -14,7 +14,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") // React app URL
+        policy.WithOrigins(
+                "http://localhost:3000",               // Local development
+                "https://notepad-web.fly.dev",         // Production frontend URL
+                "https://notepad-web.fly.dev/"         // Production frontend URL with trailing slash
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -86,5 +90,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers(); //map controller endpoints 
+
+// Add health check endpoint for Fly.io
+app.MapGet("/health", () => "Healthy");
 
 app.Run();
